@@ -106,11 +106,35 @@ function side_btn_show(){
     }
   });
 }
+
+// メインビジュアルの拡大・縮小
+function mv_scale() {
+  let scroll = $(window).scrollTop();
+  // window.innerWidthで画面幅を取得
+  // PC表示の場合の処理（画面幅が900pxより大きい場合　※900pxはCSSのブレークポイントとあわせる）
+  if (window.innerWidth > 900) {
+    // メインビジュアルのCSS（width）を変更する
+    // widthの値をスクロール量にあわせて増やすことで画像を拡大させる
+    $('.main_visual img').css({
+      'width': 100/3 + scroll/10  + '%'
+    });
+  // スマホ表示の場合の処理（画面幅が900px以下の場合）
+  } else {
+    // メインビジュアルのCSS（width）を変更する
+    // widthの値をスクロール量にあわせて減らすことで画像を縮小させる
+    $('.main_visual img').css({
+      'width': 100 - scroll/10  + '%'
+    });
+  }
+}
+
+
 // 画面をスクロールをしたら動かしたい場合の記述
 $(window).scroll(function (){
   fade_up();
   side_btn_show();/* アニメーション用の関数を呼ぶ*/
   change_bg();
+  mv_scale();
 });// ここまで画面をスクロールをしたら動かしたい場合の記述
 
   
